@@ -24,25 +24,25 @@ Simulation.initialize = function () {
 	this.fps = 60;
 	this.n = INITIAL_COUNT;
 	this.initializeSimulation();
-}
+};
 
 Simulation.initializeSimulation () {
 	document.getElementById('agent_count').textContent = Simulation.n
-}
+};
 
 Simulation.update () {
 	dt = 0.01;
-}
+};
 
 
 Simulation.draw () {
 	this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-}
+};
 
 Simulation.run () {
 	Simulation.update();
 	Simulation.draw();
-}
+};
 
 Simulation.initialize()
 
