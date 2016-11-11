@@ -46,11 +46,13 @@ Simulation.run () {
 
 Simulation.initialize()
 
-d3.interval(Simulation.run, 1000/Simulation.fps)
+//d3.interval(Simulation.run, 1000/Simulation.fps);
+
 document.getElementById('increase_agent_count').onclick = function(){
     Simulation.n=math.min(Simulation.n+1, 10);
     Simulation.initializeSimulation();
 };
+
 document.getElementById('decrease_agent_count').onclick = function(){
     Simulation.n=math.max(Simulation.n-1, 1);
     Simulation.initializeSimulation();
