@@ -44,7 +44,7 @@ Simulation.run () {
 	Simulation.draw();
 };
 
-Simulation.initialize()
+Simulation.initialize();
 
 //d3.interval(Simulation.run, 1000/Simulation.fps);
 
