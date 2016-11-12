@@ -17,12 +17,20 @@
 var Simulation = {};
 
 Simulation.initialize = function () {
-	INITIAL_COUNT = 1;
+	INITIAL_COUNT = 20;
 	this.n = INITIAL_COUNT;
 	this.canvas = document.getElementById("canvas");
 	this.ctx = this.canvas.getContext("2d");
 	this.fps = 60;
+
+	this.agent_radius = 15.
+	this.ambient =  32.
+	this.preferred = 37.
+	this.mbr = 3.3
+	this.noise = 0.0
+
 	this.initializeSimulation();
+	this.updateParameters();
 };
 
 Simulation.initializeSimulation = function() {
@@ -30,29 +38,59 @@ Simulation.initializeSimulation = function() {
 	this.ctx.clearRect(0, this.canvas.height*0.45, this.canvas.width, this.canvas.height * 0.35)
 	this.image = this.ctx.getImageData(0, this.canvas.height*0.45, this.canvas.width, this.canvas.height * 0.5)
 	this.agents = [];
-	this.agent_radius = 25.
-	this.ambient =  30.
-	this.preferred = 37.
-	this.mbr = 5.0
+	spring = 0.1;
+	//this.mbr = 5.0
 	for (var i=0; i < this.n; i++){
-		y = 10*Math.random() + 0.65 * this.canvas.height;
-		x = 10*Math.random() + 0.5 * this.canvas.width;
+		y = 1*Math.random() + 0.65 * this.canvas.height;
+		x = 1*Math.random() + 0.5 * this.canvas.width;
 		theta = Math.random() * 2 * Math.PI;
 		tb = 34.0;
 		this.agents[i] = [x,y,theta,tb];
+	}
+	for (var t=0; t<50; t++){
+		for (var i = 0; i < this.n; i++){
+			xi = this.agents[i][0]
+			yi = this.agents[i][1]
+			dx = 0
+			dy = 0
+			for (var j = 0; j < this.n; j++){
+				if (i!=j){
+					xj = this.agents[j][0];
+					yj = this.agents[j][1];
+					tb_j = this.agents[j][3];
+
+					xc = xj - xi
+					yc = yj - yi
+
+					d = Math.sqrt(Math.pow(xc,2) + Math.pow(yc,2));
+					phi = Math.atan2(yc,xc) - Math.atan2(Math.sin(theta), Math.cos(theta))
+
+					if (d < this.agent_radius * 2){
+						if (d < this.agent_radius * 1.9){
+							dx = dx - (xc) * spring * (this.agent_radius * 1.9 - d);
+							dy = dy - (yc) * spring * (this.agent_radius * 1.9 - d);
+						}
+					}
+				}
+			}	
+			this.agents[i][0] = xi + dx * 0.01
+			this.agents[i][1] = yi + dy * 0.01
+		}	
 	}
 };
 
 Simulation.updateParameters = function() {
 	document.getElementById('mbr').textContent = (Simulation.mbr).toFixed(2)
+	document.getElementById('ambient').textContent = (Simulation.ambient).toFixed(1)
+	document.getElementById('noise').textContent = (Simulation.noise).toFixed(2)
 }
 
 Simulation.update = function() {
-	dt = 0.1;
+	dt = 0.05;
 	speed = 10;
 	turning_speed = 1.0;
-	spring = 0.4;
-	n_sensors = 20
+	spring = 0.3;
+	n_sensors = 16
 
 	for (var i = 0; i < this.n; i++){
 		xi = this.agents[i][0];
@@ -224,6 +262,26 @@ document.getElementById('increase_mbr').onclick = function(){
 
 document.getElementById('decrease_mbr').onclick = function(){
     Simulation.mbr=math.max(Simulation.mbr-0.1, 1);
+    Simulation.updateParameters();
+};
+
+document.getElementById('increase_ambient').onclick = function(){
+    Simulation.ambient=math.min(Simulation.ambient+0.5, 40);
+    Simulation.updateParameters();
+};
+
+document.getElementById('decrease_ambient').onclick = function(){
+    Simulation.ambient=math.max(Simulation.ambient-0.5, 0);
+    Simulation.updateParameters();
+};
+
+document.getElementById('increase_noise').onclick = function(){
+    Simulation.noise=math.min(Simulation.noise+0.1, 2);
+    Simulation.updateParameters();
+};
+
+document.getElementById('decrease_noise').onclick = function(){
+    Simulation.noise=math.max(Simulation.noise-0.1, 0);
     Simulation.updateParameters();
 };
 /*
