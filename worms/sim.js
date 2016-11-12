@@ -148,7 +148,7 @@ Simulation.update = function() {
 		average_temp = (temp_left + temp_right) / n_sensors
 
 		if (Math.random() < this.noise){
-			dtheta = Math.sign(0.5 - Math.random())
+			dtheta = Math.sign(0.5 - Math.random()) * 5
 		} else {
 			dtheta = Math.sign(temp_left - temp_right) * Math.sign(this.preferred - tb_i)}
 
@@ -279,12 +279,12 @@ document.getElementById('decrease_ambient').onclick = function(){
 };
 
 document.getElementById('increase_noise').onclick = function(){
-    Simulation.noise=math.min(Simulation.noise+0.1, 1);
+    Simulation.noise=math.min(Simulation.noise+0.05, 1);
     Simulation.updateParameters();
 };
 
 document.getElementById('decrease_noise').onclick = function(){
-    Simulation.noise=math.max(Simulation.noise-0.1, 0);
+    Simulation.noise=math.max(Simulation.noise-0.05, 0);
     Simulation.updateParameters();
 };
 /*
