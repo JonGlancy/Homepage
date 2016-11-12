@@ -17,11 +17,11 @@
 var Simulation = {};
 
 Simulation.initialize = function () {
-	INITIAL_COUNT = 20;
+	INITIAL_COUNT = 12;
 	this.n = INITIAL_COUNT;
 	this.canvas = document.getElementById("canvas");
 	this.ctx = this.canvas.getContext("2d");
-	this.fps = 60;
+	this.fps = 30;
 
 	this.agent_radius = 15.
 	this.ambient =  32.
