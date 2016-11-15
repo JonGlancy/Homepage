@@ -3,106 +3,103 @@
 
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Jon Glancy</title>
-	<link rel="stylesheet" href="stylesheets/css/styles.css">
-	<script
-		src="https://code.jquery.com/jquery-3.1.0.min.js"
-		integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
-		crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-	<script src="https://d3js.org/d3.v4.min.js"></script>
+  <meta charset="utf-8">
+  <title>Jon Glancy</title>
+  <link rel="stylesheet" href="stylesheets/css/styles.css">
+  <script
+    src="https://code.jquery.com/jquery-3.1.0.min.js"
+    integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 
-	<script src="https://use.fontawesome.com/b6f4f7fba5.js"></script>
+  <script src="https://use.fontawesome.com/b6f4f7fba5.js"></script>
 </head>
 <body>
 
 <div id="mySidenav" class="sidenav">
-	<a href="#">About</a>
-	<a href="#">The Science</a>
-	<a href="#">The Model</a>
-	<a href="#">Publications</a>
-	<a href="#">Contact</a>
+  <a href="#aboutMe">About Me</a>
+  <a href="#theModel">The Model</a>
+  <a href="#publications">Publications</a>
 </div>
 
 <div id="main">
-	<h1 class="name">JON GLANCY</h1>
-	<p class="lead">PhD Candidate at The University of Sheffield</p>
+  <h1 class="name">JON GLANCY</h1>
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  <section id="aboutMe">
+    <a name="aboutMe"></a>
+    <h3> About Me </h3>
+    <p>A PhD candidate at The University of Sheffield with a background in mathematics and artificial intelligence. I build computational models of animal behaviours in order to explore the relationships between self-organisation and evolution.</p>
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <p>Outside of my studies I'm a fencer, I climb fake rocks, and I play board games. </p>
+  </section>
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  <section id="theModel">
+    <a name="theModel"></a>
+    <h3> The Model </h3>
+    <p>During my PhD I have developed an agent-based model of thermoregulatory huddling behaviours, such as those seen in small mammals and birds. These behaviours allow a group of animals to work together in order to maintain their core body temperatures, when they might otherwise be unable to do so.</p>
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <p>The model is incredibly simple, with each animal being represented by a circle that occupies a 2-dimensional world. These simulated animals are given only two sensors; detecting the temperature on the left and the right side of their body. These sensors are used to determine how the animals should behave according to the following set of rules:</p>
+    <ul>
+      <li>If the animal is cold, it will turn towards the side with a higher temperature.</li>
+      <li>If the animal is too hot, it will turn away from the side with a higher temperature.</li>
+    </ul>
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <p>While this simple behaviour may seem obvious, the group behaviours that emerge are not.</p>
+  </section>
 
-	
+  <section id="publications">
+    <a name="publications"></a>
+    <h3> Publications </h3>
+    <ul>
+      <li>Glancy, J., Stone, J. V., and Wilson, S. P. (2016), <a href="#">How Self-Organization Can Guide Evolution</a>, Royal Society Open Science, 3, 160553.</li>
+      <li>Glancy, J., Gross, R., Stone J. V., Wilson, S. P. (2015), <a href="http://dx.doi.org/10.1371/journal.pcbi.1004283">A Self-Organising Model of Thermoregulatory Huddling</a>, PLoS Computational Biology, 11(9): e100428.</li>
+      <li> Glancy, J., Gross, R., Wilson, S.P. (2013), <a href="http://dx.doi.org/10.1007/978-3-642-39802-5_41">A minimal model of the phase transition into thermoregulatory huddling</a>, Proceedings of Living Machines 2, Biomimetic and Biohybrid Systems (LNCS) 8064:381-383.</li>
+
+    </ul>
+    A Self-Organising Model of Thermoregulatory Huddling
+
+    http://dx.doi.org/10.1371/journal.pcbi.1004283
+  </section>
+
 </div>
 <div id="sim">
-	<div id="controls">
-		<div class="control_block">
-			Agent Count: <span id="agent_count">3</span>
-			<div>
-				<button class="nudge_button" id="increase_agent_count">+</button> 
-				<button class="nudge_button" id="decrease_agent_count">-</button>
-			</div>
-		</div>
-		<div class="control_block">
-			MBR: <span id="mbr">5</span>
-			<div>
-				<button class="nudge_button" id="increase_mbr">+</button>
-				<button class="nudge_button" id="decrease_mbr">-</button>
-			</div>
-		</div>
-		<div class="control_block">
-			Ambient Temp: <span id="ambient">30</span>
-			<div>
-				<button class="nudge_button" id="increase_ambient">+</button>
-				<button class="nudge_button" id="decrease_ambient">-</button>
-			</div>
-		</div>
-		<div class="control_block">
-		Noise: <span id="noise">0</span>
-		<div>
-			<button class="nudge_button" id="increase_noise">+</button>
-			<button class="nudge_button" id="decrease_noise">-</button></div>
-		</div>
+  <div id="controls">
+    <div class="control_block">
+      Agent Count: <span id="agent_count">20</span>
+      <div>
+        <button class="nudge_button" id="increase_agent_count">+</button> 
+        <button class="nudge_button" id="decrease_agent_count">-</button>
+      </div>
+    </div>
+    <div class="control_block">
+      MBR: <span id="mbr">5</span>
+      <div>
+        <button class="nudge_button" id="increase_mbr">+</button>
+        <button class="nudge_button" id="decrease_mbr">-</button>
+      </div>
+    </div>
+    <div class="control_block">
+      Ambient Temp: <span id="ambient">30</span>
+      <div>
+        <button class="nudge_button" id="increase_ambient">+</button>
+        <button class="nudge_button" id="decrease_ambient">-</button>
+      </div>
+    </div>
+    <!--<div class="control_block">
+    Noise: <span id="noise">0</span>
+    <div>
+      <button class="nudge_button" id="increase_noise">+</button>
+      <button class="nudge_button" id="decrease_noise">-</button></div>
+    </div>-->
   </div>
   <canvas id="canvas"></canvas>
-	<script src="./huddle/sim.js"></script>
+  <script src="./huddle/sim.js"></script>
 </div>
 </body>
 <footer id="footer" class="footer calculated-width">
-	<div class="container">
+   <div class="container">
     <p class="text-muted">
     <span class="line">
     <a class = symbol href="https://github.com/{{ site.github_username }}">
@@ -113,6 +110,6 @@
     </a>
     </span>
     </p>
-	</div>
+  </div>
 </footer>
  </html>

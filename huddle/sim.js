@@ -13,11 +13,54 @@
     resizeCanvas();
 })();
 
+getTempColor = function(temp) {
+   // get colors
+
+   var temp_pref = 37,
+   	   temp_max  = 40,
+   	   temp_min  = 30;
+
+   temp =  math.min(math.max(temp, temp_min),temp_max);
+
+   var percent   = (temp - temp_min) / (temp_max - temp_min);
+
+
+   var start_red = parseInt("00", 16),
+       start_green = parseInt("aa", 16),
+       start_blue = parseInt("aa", 16);
+
+   var end_red = parseInt("FF", 16),
+       end_green = parseInt("00", 16),
+       end_blue = parseInt("00", 16);
+
+   // calculate new color
+   var diff_red = end_red - start_red;
+   var diff_green = end_green - start_green;
+   var diff_blue = end_blue - start_blue;
+
+   diff_red = ( (diff_red * percent) + start_red ).toString(16).split('.')[0];
+   diff_green = ( (diff_green * percent) + start_green ).toString(16).split('.')[0];
+   diff_blue = ( (diff_blue * percent) + start_blue ).toString(16).split('.')[0];
+
+   // ensure 2 digits by color
+   if( diff_red.length == 1 )
+     diff_red = '0' + diff_red
+
+   if( diff_green.length == 1 )
+     diff_green = '0' + diff_green
+
+   if( diff_blue.length == 1 )
+     diff_blue = '0' + diff_blue
+
+   return '#' + diff_red + diff_green + diff_blue;
+ };
+
+
 
 var Simulation = {};
 
 Simulation.initialize = function () {
-	INITIAL_COUNT = 12;
+	INITIAL_COUNT = 20;
 	this.n = INITIAL_COUNT;
 	this.canvas = document.getElementById("canvas");
 	this.ctx = this.canvas.getContext("2d");
@@ -82,13 +125,13 @@ Simulation.initializeSimulation = function() {
 Simulation.updateParameters = function() {
 	document.getElementById('mbr').textContent = (Simulation.mbr).toFixed(2)
 	document.getElementById('ambient').textContent = (Simulation.ambient).toFixed(1)
-	document.getElementById('noise').textContent = (Simulation.noise).toFixed(2)
+	//document.getElementById('noise').textContent = (Simulation.noise).toFixed(2)
 }
 
 Simulation.update = function() {
 	dt = 0.05;
 	speed = 10;
-	turning_speed = 1.0;
+	turning_speed = 0.2;
 	spring = 0.3;
 	n_sensors = 16
 
@@ -150,7 +193,7 @@ Simulation.update = function() {
 		if (Math.random() < this.noise){
 			dtheta = Math.sign(0.5 - Math.random()) * 5
 		} else {
-			dtheta = Math.sign(temp_left - temp_right) * Math.sign(this.preferred - tb_i)}
+			dtheta = (temp_left - temp_right) * Math.sign(this.preferred - tb_i)}
 
 		// Thermodynamics
 		dTemp = -(tb_i - average_temp) + this.mbr
@@ -197,10 +240,14 @@ Simulation.draw = function() {
 
 		xi = this.agents[i][0]
 		yi = this.agents[i][1]
+		tb_i = this.agents[i][3]
 		x = parseInt(xi);
 		y = parseInt(yi);
+
+		this.ctx.fillStyle = getTempColor(tb_i)
 		this.ctx.beginPath();
 		this.ctx.arc(x,y,this.agent_radius,0,2*Math.PI);
+		this.ctx.fill();
 		this.ctx.stroke();
 
 		theta = this.agents[i][2];
@@ -242,18 +289,6 @@ Simulation.draw = function() {
 	}
 };
 
-CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
-  if (w < 2 * r) r = w / 2;
-  if (h < 2 * r) r = h / 2;
-  this.beginPath();
-  this.moveTo(x+r, y);
-  this.arcTo(x+w, y,   x+w, y+h, r);
-  this.arcTo(x+w, y+h, x,   y+h, r);
-  this.arcTo(x,   y+h, x,   y,   r);
-  this.arcTo(x,   y,   x+w, y,   r);
-  this.closePath();
-  return this;
-}
 
 Simulation.run = function () {
 	Simulation.update();
@@ -280,7 +315,7 @@ document.getElementById('increase_mbr').onclick = function(){
 };
 
 document.getElementById('decrease_mbr').onclick = function(){
-    Simulation.mbr=math.max(Simulation.mbr-0.1, 1);
+    Simulation.mbr=math.max(Simulation.mbr-0.1, 0);
     Simulation.updateParameters();
 };
 
@@ -294,7 +329,7 @@ document.getElementById('decrease_ambient').onclick = function(){
     Simulation.updateParameters();
 };
 
-document.getElementById('increase_noise').onclick = function(){
+/*document.getElementById('increase_noise').onclick = function(){
     Simulation.noise=math.min(Simulation.noise+0.05, 1);
     Simulation.updateParameters();
 };
@@ -302,7 +337,7 @@ document.getElementById('increase_noise').onclick = function(){
 document.getElementById('decrease_noise').onclick = function(){
     Simulation.noise=math.max(Simulation.noise-0.05, 0);
     Simulation.updateParameters();
-};
+};*/
 /*
 imgData= this.ctx.createImageData(100,100);
 for (var i=0;i<imgData.data.length;i+=4)

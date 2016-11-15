@@ -114,7 +114,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-
+ul {
+  padding-left:15px;
+}
 
 h1, h2, h3 {
     font-family: Arvo, Monaco, serif;
@@ -122,7 +124,8 @@ h1, h2, h3 {
     font-weight: normal;
 }
 
-h1,h2, h3 {
+
+h2, h3 {
     display: block;
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
@@ -141,11 +144,12 @@ h3 {
 }
 
 #controls{
-  width: 50%; 
+  width: 100%; 
   margin: auto;
   text-align: center;
 }
 .control_block{
+  width: 30%;
   display: inline-block;
 }
 
@@ -155,9 +159,12 @@ h3 {
   border: none;
   width: 3em;
   height: 3em;
-  margin: 2px;
+  margin: 1px;
 }
 
+#aboutMe{
+  font-style: italic;
+}
 a.symbol {
     content: attr(title);
     margin-right: 0.5em;
@@ -166,4 +173,7 @@ a.symbol {
     display: inline-block;
 }
 
+p{
+  padding-bottom: 5px;
+}
 
