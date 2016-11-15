@@ -130,16 +130,16 @@ Simulation.updateParameters = function() {
 
 Simulation.update = function() {
 	dt = 0.05;
-	speed = 10;
+	speed = 5;
 	turning_speed = 0.2;
-	spring = 0.3;
+	spring = 0.15;
 	n_sensors = 16
 
 	for (var i = 0; i < this.n; i++){
-		xi = this.agents[i][0];
-		yi = this.agents[i][1];
+		xi = this.agents[i][0]; // x position
+		yi = this.agents[i][1]; // y position
 		theta = this.agents[i][2]; // orientation of i
-		tb_i = this.agents[i][3];
+		tb_i = this.agents[i][3]; // tb
 
 		dx = Math.cos(theta) * speed;
 		dy = Math.sin(theta) * speed;
@@ -159,9 +159,9 @@ Simulation.update = function() {
 				phi = Math.atan2(yc,xc) - Math.atan2(Math.sin(theta), Math.cos(theta))
 
 				if (d < this.agent_radius * 2){
-					if (d < this.agent_radius * 1.9){
-						dx = dx - (xc) * spring * (this.agent_radius * 1.9 - d);
-						dy = dy - (yc) * spring * (this.agent_radius * 1.9 - d);
+					if (d < this.agent_radius * 1.8){
+						dx = dx - (xc) * spring * (this.agent_radius * 1.8 - d);
+						dy = dy - (yc) * spring * (this.agent_radius * 1.8 - d);
 					} 
 					//found = 0
 					for (var k = 0; k < n_sensors; k++){
@@ -196,21 +196,28 @@ Simulation.update = function() {
 			dtheta = (temp_left - temp_right) * Math.sign(this.preferred - tb_i)}
 
 		// Thermodynamics
-		dTemp = -(tb_i - average_temp) + this.mbr
+		dtemp = -(tb_i - average_temp) + this.mbr
 
+		this.agents[i][4] = dx
+		this.agents[i][5] = dy
+		this.agents[i][6] = math.max(math.min(dtheta,5),-5)
+		this.agents[i][7] = dtemp
+	}
+
+	for (var i =0; i < this.n; i++){
 		// Update Position
-		x = xi + dt * dx;
-		y = yi + dt * dy;
+		x = this.agents[i][0] + dt * this.agents[i][4];
+		y = this.agents[i][1] + dt * this.agents[i][5];
 		// keep em on the table!
 		this.agents[i][0] = Math.max(Math.min(x, this.canvas.width - 1.2*this.agent_radius),1.2*this.agent_radius)
 		this.agents[i][1] = Math.max(Math.min(y, this.canvas.height - 1.2*this.agent_radius),1.2*this.agent_radius)
 
 		// Update Orientation
-		theta = theta - dt * dtheta * turning_speed
+		theta = this.agents[i][2] - dt * this.agents[i][6] * turning_speed
 		this.agents[i][2] = theta % (Math.PI*2)
 
 		//Update Temperature
-		this.agents[i][3] = tb_i + dt * dTemp
+		this.agents[i][3] = this.agents[i][3] + 2 * dt * this.agents[i][7]
 	}
 };
 
@@ -300,7 +307,7 @@ Simulation.initialize();
 d3.interval(Simulation.run, 1000/Simulation.fps);
 
 document.getElementById('increase_agent_count').onclick = function(){
-    Simulation.n=math.min(Simulation.n+1, 50);
+    Simulation.n=math.min(Simulation.n+1, 100);
     Simulation.initializeSimulation();
 };
 
