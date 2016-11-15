@@ -60,17 +60,17 @@ getTempColor = function(temp) {
 var Simulation = {};
 
 Simulation.initialize = function () {
-	INITIAL_COUNT = 20;
+	INITIAL_COUNT = 12;
 	this.n = INITIAL_COUNT;
 	this.canvas = document.getElementById("canvas");
 	this.ctx = this.canvas.getContext("2d");
 	this.fps = 30;
 
-	this.agent_radius = 15.
-	this.ambient =  32.
+	this.agent_radius = 20.
+	this.ambient =  20.
 	this.preferred = 37.
-	this.mbr = 3.3
-	this.noise = 0.0
+	this.mbr = 8.0
+	this.noise = 0.5
 
 	this.initializeSimulation();
 	this.updateParameters();
@@ -217,7 +217,7 @@ Simulation.update = function() {
 		this.agents[i][2] = theta % (Math.PI*2)
 
 		//Update Temperature
-		this.agents[i][3] = this.agents[i][3] + 2 * dt * this.agents[i][7]
+		this.agents[i][3] = this.agents[i][3] + dt * this.agents[i][7]
 	}
 };
 
